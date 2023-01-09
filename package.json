@@ -1,0 +1,23 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "javascript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olsenjames1116/ticTacToe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olsenjames1116/ticTacToe/issues"
+  },
+  "homepage": "https://github.com/olsenjames1116/ticTacToe#readme",
+  "dependencies": {
+    "eslint-config-wesbos": "^3.2.0"
+  }
+}
