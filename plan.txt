@@ -23,11 +23,12 @@ Steps:
 //Create a start button//
 //Add an event listener to the start button//
     //Display a form for the user to enter the player's names//
-    //Create two separate players using factory functions passing the names and symbols as arguments
-    //Create gameboard using module
-    //Create divs for each section of the gameboard
-    //Format gameboard divs as grid
-    //Display gameboard
+    //Create two separate players using factory functions passing the names and symbols as arguments//
+    //Create gameboard using module//
+    //Create divs for each section of the gameboard//
+    //Format gameboard divs as grid//
+    //Display gameboard//
+    //Hide form, start and play buttons
     //Create score as module
     //Display score
     //Display player's name
