@@ -28,10 +28,10 @@ Steps:
     //Create divs for each section of the gameboard//
     //Format gameboard divs as grid//
     //Display gameboard//
-    //Hide form, start and play buttons
-    //Create score as module
-    //Display score
-    //Display player's name
+    //Hide form, start and play buttons//
+    //Create score as module//
+    //Display score//
+    //Display player's name//
 //Add event listener to each div of the gameboard
     //Change the selected portion of the gameboard to display the player's symbol
     //Store the selection in an array of the gameboard object

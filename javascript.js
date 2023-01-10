@@ -1,5 +1,5 @@
 const elementFactory = (selector) => {
-    const findElement = document.querySelector(selector);
+    const findElement = () => document.querySelector(selector);
     return { findElement };
 };
 
@@ -7,8 +7,8 @@ const startButton = elementFactory('button#startButton');
 const form = elementFactory('form');
 const playButton = elementFactory('button#playButton');
 
-startButton.findElement.addEventListener('click', () => {
-    form.findElement.setAttribute('style', 'display: block;');
+startButton.findElement().addEventListener('click', () => {
+    form.findElement().setAttribute('style', 'display: block;');
 });
 
 const playerFactory = (name, symbol) => {
@@ -40,8 +40,12 @@ const scoreboard = (function () {
         playerTwoElement.appendChild(playerTwoNameElement);
         playerTwoElement.appendChild(playerTwoScoreElement);
 
+        const turnElement = document.createElement('p');
+        turnElement.classList.add('turn');
+
         scoreboardElement.appendChild(playerOneElement);
         scoreboardElement.appendChild(playerTwoElement);
+        scoreboardElement.appendChild(turnElement);
         document.querySelector('body').appendChild(scoreboardElement);
     };
 
@@ -51,7 +55,7 @@ const scoreboard = (function () {
         );
         playerOneNameElement.textContent = `Player 1: ${playerOneName}`;
         const playerOneScoreElement = document.querySelector(
-            'div.playerOne>p:last-child'
+            'div.playerOne>p:nth-child(2)'
         );
         playerOneScoreElement.textContent = playerOneScore;
 
@@ -60,14 +64,21 @@ const scoreboard = (function () {
         );
         playerTwoNameElement.textContent = `Player 2: ${playerTwoName}`;
         const playerTwoScoreElement = document.querySelector(
-            'div.playerTwo>p:last-child'
+            'div.playerTwo>p:nth-child(2)'
         );
         playerTwoScoreElement.textContent = playerTwoScore;
     };
-    return { makeBoard, displayScore };
+
+    const displayTurn = (name) => {
+        document.querySelector('p.turn').textContent = `It's ${name}'s turn`;
+    };
+
+    return { makeBoard, displayScore, displayTurn };
 })();
 
 const gameboard = (function () {
+    const gameArray = [];
+
     const makeBoard = () => {
         const gameboardElement = document.createElement('div');
         gameboardElement.classList.add('gameboard');
@@ -78,26 +89,110 @@ const gameboard = (function () {
             gameboardElement.appendChild(gameSquareElement);
         }
     };
-    return { makeBoard };
+
+    const getSquares = () => document.querySelectorAll('div.gameboard>div');
+
+    const checkBoard = (symbol) => {
+        if (
+            gameArray[0].textContent === symbol &&
+            gameArray[1].textContent === symbol &&
+            gameArray[2].textContent === symbol
+        ) {
+            return 'winner';
+        }
+        if (
+            gameArray[3].textContent === symbol &&
+            gameArray[4].textContent === symbol &&
+            gameArray[5].textContent === symbol
+        ) {
+            return 'winner';
+        }
+        if (
+            gameArray[6].textContent === symbol &&
+            gameArray[7].textContent === symbol &&
+            gameArray[8].textContent === symbol
+        ) {
+            return 'winner';
+        }
+        if (
+            gameArray[0].textContent === symbol &&
+            gameArray[3].textContent === symbol &&
+            gameArray[6].textContent === symbol
+        ) {
+            return 'winner';
+        }
+        if (
+            gameArray[1].textContent === symbol &&
+            gameArray[4].textContent === symbol &&
+            gameArray[7].textContent === symbol
+        ) {
+            return 'winner';
+        }
+        if (
+            gameArray[2].textContent === symbol &&
+            gameArray[5].textContent === symbol &&
+            gameArray[8].textContent === symbol
+        ) {
+            return 'winner';
+        }
+        if (
+            gameArray[0].textContent === symbol &&
+            gameArray[4].textContent === symbol &&
+            gameArray[8].textContent === symbol
+        ) {
+            return 'winner';
+        }
+        if (
+            gameArray[2].textContent === symbol &&
+            gameArray[4].textContent === symbol &&
+            gameArray[6].textContent === symbol
+        ) {
+            return 'winner';
+        }
+    };
+
+    return { gameArray, makeBoard, getSquares, checkBoard };
 })();
 
-playButton.findElement.addEventListener('click', () => {
+playButton.findElement().addEventListener('click', () => {
     const playerOneInput = elementFactory('input#playerOneName');
-    const playerOneName = playerOneInput.findElement.value;
+    const playerOneName = playerOneInput.findElement().value;
     const playerTwoInput = elementFactory('input#playerTwoName');
-    const playerTwoName = playerTwoInput.findElement.value;
+    const playerTwoName = playerTwoInput.findElement().value;
 
     const playerOne = playerFactory(playerOneName, 'X');
     const playerTwo = playerFactory(playerTwoName, 'O');
     playerOne.displayName();
     playerTwo.displayName();
 
+    startButton.findElement().setAttribute('style', 'display: none;');
+    form.findElement().setAttribute('style', 'display: none;');
+    playButton.findElement().setAttribute('style', 'display: none;');
+
     scoreboard.makeBoard();
     scoreboard.displayScore(playerOne.name, playerTwo.name);
+    scoreboard.displayTurn(playerOne.name);
 
     gameboard.makeBoard();
-
-    startButton.findElement.setAttribute('style', 'display: none;');
-    form.findElement.setAttribute('style', 'display: none;');
-    playButton.findElement.setAttribute('style', 'display: none;');
+    let turn;
+    let symbol;
+    gameboard.getSquares().forEach((square) => {
+        gameboard.gameArray.push(square);
+        square.addEventListener('click', (event) => {
+            if (event.target.textContent === '') {
+                if (turn === 'playerTwo') {
+                    symbol = playerTwo.symbol;
+                    scoreboard.displayTurn(playerOne.name);
+                    turn = 'playerOne';
+                } else {
+                    symbol = playerOne.symbol;
+                    scoreboard.displayTurn(playerTwo.name);
+                    turn = 'playerTwo';
+                }
+                event.target.textContent = symbol;
+                const result = gameboard.checkBoard(symbol);
+                console.log(result);
+            }
+        });
+    });
 });
