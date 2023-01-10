@@ -7,7 +7,7 @@ const startButton = elementFactory('button#startButton');
 const form = elementFactory('form');
 
 startButton.findElement.addEventListener('click', () => {
-    form.findElement.setAttribute('style', 'display: block');
+    form.findElement.setAttribute('style', 'display: block;');
 });
 
 const playerFactory = (name, symbol) => {
@@ -46,4 +46,8 @@ playButton.findElement.addEventListener('click', () => {
 
     const gameboard = gameboardFactory();
     gameboard.makeBoard();
+
+    startButton.findElement.setAttribute('style', 'display: none;');
+    form.findElement.setAttribute('style', 'display: none;');
+    playButton.findElement.setAttribute('style', 'display: none;');
 });
