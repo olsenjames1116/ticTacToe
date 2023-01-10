@@ -1,16 +1,62 @@
 Understanding the problem:
-
+    I need to create a program that plays tic-tac-toe on the web page. The gameboard will be displayed to the user where they will be able to play against another user. 
+    The first to reach three-in-a-row of their symbols, wins the game. However, it is possible to draw. The public scope should be avoided as much as possible.
+    To accomplish this, factory functions and modules will be used to create objects.
 
 Plan
 -------
 Does your program have a user interface? What will it look like? What functionality will the interface have?
-
+    Yes, the interface will be a gameboard that has separate areas to be clicked on by the user to mark where they want to place their symbol.
+    A button will be used to start or restart the game at the user's request.
 What inputs will your program have? Will the user enter data or will you get input from somewhere else?
-
+    The only input the program will have is from clicks by the user to mark where they would like to place their symbol.
 What's the desired input?
-
+    The desired input would be a click.
 Given your inputs, what are the steps necessary to return the desired output?
-
+    First, the user will need to initialize the game by pressing the start button. Then the game will await until the first player clicks where they want to place their symbol.
+    The turn will end for the first player and begin for the second player. The second player will then click where they want to place their symbol.
+    This process will continue until either player wins by getting three-in-a-row of their symbol or the gameboard is filled, resulting in a draw.
+    The user will then be able to start a new game if they wish.
 
 Steps:
 -------
+//Create a start button 
+//Add an event listener to the start button
+    //Display a form for the user to enter the player's names
+    //Create two separate players using factory functions passing the names and symbols as arguments
+    //Create gameboard using module
+    //Create divs for each section of the gameboard
+    //Format gameboard divs as grid
+    //Display gameboard
+    //Create score as module
+    //Display score
+    //Display player's name
+//Add event listener to each div of the gameboard
+    //Change the selected portion of the gameboard to display the player's symbol
+    //Store the selection in an array of the gameboard object
+    //Check to see if there is 3 in a row of the player's symbol
+    //Change turns to the next player
+    //Display player's name
+//Event listener function for div of gameboard
+    //Change selected portion of the gameboard to display the player's symbol
+    //Check to see if there is 3 in a row of the player's symbol
+//Continue changing turns
+//After player 1's 5th turn if there is not 3 in a row, it is a draw
+//Display winner if they get 3 in a row
+//Display draw if there is no winner
+//Award point to winner or no points if there is a draw
+//Display score
+//Display next round button
+//Add event listener to next round button
+    //Clear out array
+    //Display empty gameboard
+    //Display players' names
+    //Display score
+    //Start player 1's turn
+//Display restart button if the player wishes to play again
+    //Add reference to current page to restart button so it will restart page when pressed
+
+//Format page display
+//Format background colors
+//Format font 
+//Edit README
