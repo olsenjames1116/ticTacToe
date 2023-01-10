@@ -49,11 +49,20 @@ const scoreboard = (function () {
         const playerOneNameElement = document.querySelector(
             'div.playerOne>p:first-child'
         );
-        playerOneNameElement.textContent = playerOneName;
+        playerOneNameElement.textContent = `Player 1: ${playerOneName}`;
+        const playerOneScoreElement = document.querySelector(
+            'div.playerOne>p:last-child'
+        );
+        playerOneScoreElement.textContent = playerOneScore;
+
         const playerTwoNameElement = document.querySelector(
             'div.playerTwo>p:first-child'
         );
-        playerTwoNameElement.textContent = playerTwoName;
+        playerTwoNameElement.textContent = `Player 2: ${playerTwoName}`;
+        const playerTwoScoreElement = document.querySelector(
+            'div.playerTwo>p:last-child'
+        );
+        playerTwoScoreElement.textContent = playerTwoScore;
     };
     return { makeBoard, displayScore };
 })();
