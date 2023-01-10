@@ -17,3 +17,10 @@ div.gameboard{
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
+
+div.result{
+    display: none;
+    position: fixed;
+    top: 200px;
+    left: 100px;
+}

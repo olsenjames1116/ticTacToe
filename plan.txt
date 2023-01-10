@@ -43,19 +43,19 @@ Steps:
     //Check to see if there is 3 in a row of the player's symbol//
 //Continue changing turns//
 //After player 1's 5th turn if there is not 3 in a row, it is a draw//
-//Display winner if they get 3 in a row
-//Display draw if there is no winner
+//Display winner if they get 3 in a row//
+//Display draw if there is no winner//
 //Award point to winner or no points if there is a draw
-//Display score
-//Display next round button
-//Add event listener to next round button
-    //Clear out array
-    //Display empty gameboard
-    //Display players' names
-    //Display score
-    //Start player 1's turn
-//Display restart button if the player wishes to play again
-    //Add reference to current page to restart button so it will restart page when pressed
+//Display score//
+//Display next round button//
+//Add event listener to next round button//
+    //Clear out array//
+    //Display empty gameboard//
+    //Display players' names//
+    //Display score//
+    //Start player 1's turn//
+//Display restart button if the player wishes to play again//
+    //Add reference to current page to restart button so it will restart page when pressed//
 
 //Format page display
 //Format background colors

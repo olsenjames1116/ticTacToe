@@ -19,8 +19,8 @@ const playerFactory = (name, symbol) => {
 };
 
 const scoreboard = (function () {
-    const playerOneScore = 0;
-    const playerTwoScore = 0;
+    let playerOneScore = 0;
+    let playerTwoScore = 0;
 
     const makeBoard = () => {
         const scoreboardElement = document.createElement('div');
@@ -73,7 +73,15 @@ const scoreboard = (function () {
         document.querySelector('p.turn').textContent = `It's ${name}'s turn`;
     };
 
-    return { makeBoard, displayScore, displayTurn };
+    const awardPoint = (name, playerOne) => {
+        if (name === playerOne.name) {
+            playerOneScore += 1;
+        } else {
+            playerTwoScore += 1;
+        }
+    };
+
+    return { makeBoard, displayScore, displayTurn, awardPoint };
 })();
 
 const gameboard = (function () {
@@ -183,10 +191,11 @@ playButton.findElement().addEventListener('click', () => {
     let playerTurn;
     let turn = 0;
     let symbol;
+    let endGame = false;
     gameboard.getSquares().forEach((square) => {
         gameboard.gameArray.push(square);
         square.addEventListener('click', (event) => {
-            if (event.target.textContent === '') {
+            if (event.target.textContent === '' && !endGame) {
                 turn += 1;
                 if (playerTurn === 'playerTwo') {
                     symbol = playerTwo.symbol;
@@ -199,7 +208,61 @@ playButton.findElement().addEventListener('click', () => {
                 }
                 event.target.textContent = symbol;
                 const result = gameboard.checkBoard(symbol, turn);
-                console.log(result);
+                if (result !== '') {
+                    const resultDisplay =
+                        document.querySelector('div.result>p');
+                    let winningPlayer;
+                    if (result === 'winner') {
+                        if (symbol === 'X') {
+                            winningPlayer = playerOne.name;
+                        } else {
+                            winningPlayer = playerTwo.name;
+                        }
+                        resultDisplay.textContent = `${winningPlayer} is the winner!`;
+                    } else if (result === 'draw') {
+                        resultDisplay.textContent = `It's a draw!`;
+                    }
+
+                    document
+                        .querySelector('div.result')
+                        .setAttribute('style', 'display: block;');
+                    scoreboard.awardPoint(winningPlayer, playerOne);
+                    scoreboard.displayScore(playerOne.name, playerTwo.name);
+
+                    const nextRoundButton = document.createElement('button');
+                    const restartButton = document.createElement('button');
+
+                    nextRoundButton.textContent = 'Next Round';
+                    document
+                        .querySelector('div.result')
+                        .appendChild(nextRoundButton);
+                    nextRoundButton.addEventListener('click', () => {
+                        gameboard.gameArray = [];
+                        turn = 0;
+                        playerTurn = '';
+                        endGame = false;
+                        document
+                            .querySelector('div.result')
+                            .setAttribute('style', 'display: none;');
+                        gameboard.getSquares().forEach((square) => {
+                            square.textContent = '';
+                            gameboard.gameArray.push(square);
+                        });
+                        scoreboard.displayTurn(playerOne.name);
+                        nextRoundButton.remove();
+                        restartButton.remove();
+                    });
+
+                    restartButton.textContent = 'Restart';
+                    document
+                        .querySelector('div.result')
+                        .appendChild(restartButton);
+                    restartButton.addEventListener('click', () => {
+                        location.reload(true);
+                    });
+
+                    endGame = true;
+                }
             }
         });
     });
