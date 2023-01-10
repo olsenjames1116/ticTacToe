@@ -92,7 +92,7 @@ const gameboard = (function () {
 
     const getSquares = () => document.querySelectorAll('div.gameboard>div');
 
-    const checkBoard = (symbol) => {
+    const checkBoard = (symbol, turn) => {
         if (
             gameArray[0].textContent === symbol &&
             gameArray[1].textContent === symbol &&
@@ -149,6 +149,12 @@ const gameboard = (function () {
         ) {
             return 'winner';
         }
+
+        if (turn === 9) {
+            return 'draw';
+        }
+
+        return '';
     };
 
     return { gameArray, makeBoard, getSquares, checkBoard };
@@ -174,23 +180,25 @@ playButton.findElement().addEventListener('click', () => {
     scoreboard.displayTurn(playerOne.name);
 
     gameboard.makeBoard();
-    let turn;
+    let playerTurn;
+    let turn = 0;
     let symbol;
     gameboard.getSquares().forEach((square) => {
         gameboard.gameArray.push(square);
         square.addEventListener('click', (event) => {
             if (event.target.textContent === '') {
-                if (turn === 'playerTwo') {
+                turn += 1;
+                if (playerTurn === 'playerTwo') {
                     symbol = playerTwo.symbol;
                     scoreboard.displayTurn(playerOne.name);
-                    turn = 'playerOne';
+                    playerTurn = 'playerOne';
                 } else {
                     symbol = playerOne.symbol;
                     scoreboard.displayTurn(playerTwo.name);
-                    turn = 'playerTwo';
+                    playerTurn = 'playerTwo';
                 }
                 event.target.textContent = symbol;
-                const result = gameboard.checkBoard(symbol);
+                const result = gameboard.checkBoard(symbol, turn);
                 console.log(result);
             }
         });
