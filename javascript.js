@@ -5,6 +5,7 @@ const elementFactory = (selector) => {
 
 const startButton = elementFactory('button#startButton');
 const form = elementFactory('form');
+const playButton = elementFactory('button#playButton');
 
 startButton.findElement.addEventListener('click', () => {
     form.findElement.setAttribute('style', 'display: block;');
@@ -17,7 +18,47 @@ const playerFactory = (name, symbol) => {
     return { name, symbol, displayName };
 };
 
-const gameboardFactory = function () {
+const scoreboard = (function () {
+    const playerOneScore = 0;
+    const playerTwoScore = 0;
+
+    const makeBoard = () => {
+        const scoreboardElement = document.createElement('div');
+        scoreboardElement.classList.add('scoreboard');
+
+        const playerOneElement = document.createElement('div');
+        playerOneElement.classList.add('playerOne');
+        const playerOneNameElement = document.createElement('p');
+        const playerOneScoreElement = document.createElement('p');
+        playerOneElement.appendChild(playerOneNameElement);
+        playerOneElement.appendChild(playerOneScoreElement);
+
+        const playerTwoElement = document.createElement('div');
+        playerTwoElement.classList.add('playerTwo');
+        const playerTwoNameElement = document.createElement('p');
+        const playerTwoScoreElement = document.createElement('p');
+        playerTwoElement.appendChild(playerTwoNameElement);
+        playerTwoElement.appendChild(playerTwoScoreElement);
+
+        scoreboardElement.appendChild(playerOneElement);
+        scoreboardElement.appendChild(playerTwoElement);
+        document.querySelector('body').appendChild(scoreboardElement);
+    };
+
+    const displayScore = (playerOneName, playerTwoName) => {
+        const playerOneNameElement = document.querySelector(
+            'div.playerOne>p:first-child'
+        );
+        playerOneNameElement.textContent = playerOneName;
+        const playerTwoNameElement = document.querySelector(
+            'div.playerTwo>p:first-child'
+        );
+        playerTwoNameElement.textContent = playerTwoName;
+    };
+    return { makeBoard, displayScore };
+})();
+
+const gameboard = (function () {
     const makeBoard = () => {
         const gameboardElement = document.createElement('div');
         gameboardElement.classList.add('gameboard');
@@ -29,9 +70,7 @@ const gameboardFactory = function () {
         }
     };
     return { makeBoard };
-};
-
-const playButton = elementFactory('button#playButton');
+})();
 
 playButton.findElement.addEventListener('click', () => {
     const playerOneInput = elementFactory('input#playerOneName');
@@ -44,7 +83,9 @@ playButton.findElement.addEventListener('click', () => {
     playerOne.displayName();
     playerTwo.displayName();
 
-    const gameboard = gameboardFactory();
+    scoreboard.makeBoard();
+    scoreboard.displayScore(playerOne.name, playerTwo.name);
+
     gameboard.makeBoard();
 
     startButton.findElement.setAttribute('style', 'display: none;');

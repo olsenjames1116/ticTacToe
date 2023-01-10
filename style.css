@@ -6,6 +6,11 @@ form{
     display: none;
 }
 
+div.scoreboard{
+    width: 100vw;
+    height: 500px;
+}
+
 div.gameboard{
     width: 500px;
     height: 500px;
