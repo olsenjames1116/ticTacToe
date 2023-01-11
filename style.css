@@ -50,6 +50,31 @@ input{
 
 div.scoreboard{
     width: 100vw;
+    display: grid;
+    font-size: 2rem;
+}
+
+div.scoreboard>div.playerOne{
+    grid-area: 1 / 1 / 2 / 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+div.scoreboard>div.playerTwo{
+    grid-area: 1 / 2 / 2 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+p.turn{
+    grid-area: 2 / 1 / 3 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 div.gameboard{
