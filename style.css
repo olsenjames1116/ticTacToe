@@ -1,12 +1,14 @@
 *{
     margin: 0;
-    outline: 1px solid black;
+    /* outline: 1px solid black; */
+    color: rgb(0, 140, 255);
 }
 
 body{
     height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    background-color: rgb(235, 235, 34);
 }
 
 div.header{
@@ -19,11 +21,15 @@ div.mainContent{
     display: grid;
 }
 
+button{
+    font-size: 2rem;
+}
+
 button#startButton{
     align-self: center;
     justify-self: center;
-    width: 4rem;
-    height: 2rem;
+    width: 8rem;
+    height: 4rem;
 }
 
 form{
@@ -45,7 +51,8 @@ form>div{
 
 input{
     height: 2rem;
-    font-size: 1rem;
+    font-size: 2rem;
+    background-color: rgb(201, 201, 201);
 }
 
 div.scoreboard{
@@ -78,22 +85,49 @@ p.turn{
 }
 
 div.gameboard{
-    flex-grow: 1;
     width: 500px;
     height: 500px;
+    align-self: center;
+    justify-self: center;
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
 
+div.gameboard>div{
+    outline: 1px solid rgb(0, 140, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+}
+
 div.result{
+    height: 200px;
+    width: 200px;
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
     position: fixed;
-    top: 200px;
-    left: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: gray;
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+div.result>p{
+    text-align: center;
 }
 
 div.footer{
     padding: 1rem;
     display: flex;
     justify-content: center;
+}
+
+a{
+    text-decoration: none;
+    color: black;
 }

@@ -220,7 +220,7 @@ playButton.findElement().addEventListener('click', () => {
 
                     document
                         .querySelector('div.result')
-                        .setAttribute('style', 'display: block;');
+                        .setAttribute('style', 'display: flex;');
                     scoreboard.awardPoint(winningPlayer, playerOne);
                     scoreboard.displayScore(playerOne.name, playerTwo.name);
 
