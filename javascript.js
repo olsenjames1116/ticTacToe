@@ -8,7 +8,7 @@ const form = elementFactory('form');
 const playButton = elementFactory('button#playButton');
 
 startButton.findElement().addEventListener('click', () => {
-    form.findElement().setAttribute('style', 'display: block;');
+    form.findElement().setAttribute('style', 'display: flex;');
     startButton.findElement().setAttribute('style', 'display: none;');
 });
 
