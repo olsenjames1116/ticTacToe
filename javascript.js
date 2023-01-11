@@ -9,14 +9,10 @@ const playButton = elementFactory('button#playButton');
 
 startButton.findElement().addEventListener('click', () => {
     form.findElement().setAttribute('style', 'display: block;');
+    startButton.findElement().setAttribute('style', 'display: none;');
 });
 
-const playerFactory = (name, symbol) => {
-    const displayName = () => {
-        console.log(`Player: ${name}`);
-    };
-    return { name, symbol, displayName };
-};
+const playerFactory = (name, symbol) => ({ name, symbol });
 
 const scoreboard = (function () {
     let playerOneScore = 0;
@@ -46,27 +42,29 @@ const scoreboard = (function () {
         scoreboardElement.appendChild(playerOneElement);
         scoreboardElement.appendChild(playerTwoElement);
         scoreboardElement.appendChild(turnElement);
-        document.querySelector('body').appendChild(scoreboardElement);
+        document
+            .querySelector('div.mainContent')
+            .appendChild(scoreboardElement);
     };
 
     const displayScore = (playerOneName, playerTwoName) => {
-        const playerOneNameElement = document.querySelector(
+        const playerOneNameElement = elementFactory(
             'div.playerOne>p:first-child'
         );
-        playerOneNameElement.textContent = `Player 1: ${playerOneName}`;
-        const playerOneScoreElement = document.querySelector(
+        playerOneNameElement.findElement().textContent = `Player 1: ${playerOneName}`;
+        const playerOneScoreElement = elementFactory(
             'div.playerOne>p:nth-child(2)'
         );
-        playerOneScoreElement.textContent = playerOneScore;
+        playerOneScoreElement.findElement().textContent = playerOneScore;
 
-        const playerTwoNameElement = document.querySelector(
+        const playerTwoNameElement = elementFactory(
             'div.playerTwo>p:first-child'
         );
-        playerTwoNameElement.textContent = `Player 2: ${playerTwoName}`;
-        const playerTwoScoreElement = document.querySelector(
+        playerTwoNameElement.findElement().textContent = `Player 2: ${playerTwoName}`;
+        const playerTwoScoreElement = elementFactory(
             'div.playerTwo>p:nth-child(2)'
         );
-        playerTwoScoreElement.textContent = playerTwoScore;
+        playerTwoScoreElement.findElement().textContent = playerTwoScore;
     };
 
     const displayTurn = (name) => {
@@ -90,7 +88,7 @@ const gameboard = (function () {
     const makeBoard = () => {
         const gameboardElement = document.createElement('div');
         gameboardElement.classList.add('gameboard');
-        document.querySelector('body').appendChild(gameboardElement);
+        document.querySelector('div.mainContent').appendChild(gameboardElement);
 
         for (let i = 0; i < 9; i += 1) {
             const gameSquareElement = document.createElement('div');
@@ -176,10 +174,7 @@ playButton.findElement().addEventListener('click', () => {
 
     const playerOne = playerFactory(playerOneName, 'X');
     const playerTwo = playerFactory(playerTwoName, 'O');
-    playerOne.displayName();
-    playerTwo.displayName();
 
-    startButton.findElement().setAttribute('style', 'display: none;');
     form.findElement().setAttribute('style', 'display: none;');
     playButton.findElement().setAttribute('style', 'display: none;');
 
@@ -244,9 +239,9 @@ playButton.findElement().addEventListener('click', () => {
                         document
                             .querySelector('div.result')
                             .setAttribute('style', 'display: none;');
-                        gameboard.getSquares().forEach((square) => {
-                            square.textContent = '';
-                            gameboard.gameArray.push(square);
+                        gameboard.getSquares().forEach((gameSquare) => {
+                            gameSquare.textContent = '';
+                            gameboard.gameArray.push(gameSquare);
                         });
                         scoreboard.displayTurn(playerOne.name);
                         nextRoundButton.remove();

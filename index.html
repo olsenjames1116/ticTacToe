@@ -9,20 +9,28 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <button type="button" id="startButton">Start</button>
-        <form action="" method="set">
-            <div class="playerOne">
-                <label for="playerOneName">Enter Player One's Name:</label>
-                <input type="text" id="playerOneName" name="playerOneName">
+        <div class="header">
+           <h1>Tic Tac Toe</h1>
+        </div>
+        <div class="mainContent">
+            <button type="button" id="startButton">Start</button>
+            <form action="" method="set">
+                <div class="playerOne">
+                    <label for="playerOneName">Enter Player One's Name:</label>
+                    <input type="text" id="playerOneName" name="playerOneName">
+                </div>
+                <div class="playerTwo">
+                    <label for="playerTwoName">Enter Player Two's Name:</label>
+                    <input type="text" id="playerTwoName" name="playerTwoName">
+                </div>
+                <button type="button" id="playButton">Play Game</button>
+            </form>
+            <div class="result">
+                <p></p>
             </div>
-            <div class="playerTwo">
-                <label for="playerTwoName">Enter Player Two's Name:</label>
-                <input type="text" id="playerTwoName" name="playerTwoName">
-            </div>
-            <button type="button" id="playButton">Play Game</button>
-        </form>
-        <div class="result">
-            <p></p>
+        </div>
+        <div class="footer">
+            <p>Built and designed by <a href="https://github.com/olsenjames1116">olsenjames1116</a></p>
         </div>
     </body>
 </html>

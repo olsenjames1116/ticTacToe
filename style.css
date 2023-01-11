@@ -1,17 +1,37 @@
 *{
+    margin: 0;
     outline: 1px solid black;
+}
+
+body{
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+div.mainContent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 form{
     display: none;
+    justify-self: center;
+    align-self: center;
+}
+
+form>div{
+    display: flex;
+    flex-direction: column;
 }
 
 div.scoreboard{
     width: 100vw;
-    height: 500px;
 }
 
 div.gameboard{
+    flex-grow: 1;
     width: 500px;
     height: 500px;
     display: grid;
