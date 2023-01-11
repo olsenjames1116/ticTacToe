@@ -71,11 +71,13 @@ const scoreboard = (function () {
         document.querySelector('p.turn').textContent = `It's ${name}'s turn`;
     };
 
-    const awardPoint = (name, playerOne) => {
-        if (name === playerOne.name) {
-            playerOneScore += 1;
-        } else {
-            playerTwoScore += 1;
+    const awardPoint = (name, playerOne, result) => {
+        if (result === 'winner') {
+            if (name === playerOne.name) {
+                playerOneScore += 1;
+            } else {
+                playerTwoScore += 1;
+            }
         }
     };
 
@@ -221,7 +223,7 @@ playButton.findElement().addEventListener('click', () => {
                     document
                         .querySelector('div.result')
                         .setAttribute('style', 'display: flex;');
-                    scoreboard.awardPoint(winningPlayer, playerOne);
+                    scoreboard.awardPoint(winningPlayer, playerOne, result);
                     scoreboard.displayScore(playerOne.name, playerTwo.name);
 
                     const nextRoundButton = document.createElement('button');
