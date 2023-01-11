@@ -57,8 +57,7 @@ Steps:
 //Display restart button if the player wishes to play again//
     //Add reference to current page to restart button so it will restart page when pressed//
 
-//Fix logic
-//Format page display
-//Format background colors
-//Format font 
-//Edit README
+//Fix logic//
+//Format page display//
+//Format background colors//
+//Edit README//
