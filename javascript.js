@@ -48,6 +48,7 @@ const scoreboard = (function () {
             .appendChild(scoreboardElement);
     };
 
+    // Display score at the beginning and end of each round for the user
     const displayScore = (playerOneName, playerTwoName) => {
         const playerOneNameElement = elementFactory(
             'div.playerOne>p:first-child'
@@ -68,10 +69,12 @@ const scoreboard = (function () {
         playerTwoScoreElement.findElement().textContent = playerTwoScore;
     };
 
+    // Once a turn is over, display the next person's turn
     const displayTurn = (name) => {
         document.querySelector('p.turn').textContent = `It's ${name}'s turn`;
     };
 
+    // Give a point to whoever won the round
     const awardPoint = (name, playerOne, result) => {
         if (result === 'winner') {
             if (name === playerOne.name) {
@@ -88,19 +91,24 @@ const scoreboard = (function () {
 const gameboard = (function () {
     const gameArray = [];
 
+    // Make and display the gameboard after the user starts the game
     const makeBoard = () => {
         const gameboardElement = document.createElement('div');
         gameboardElement.classList.add('gameboard');
         document.querySelector('div.mainContent').appendChild(gameboardElement);
 
+        // Create all nine tic-tac-toe squares
         for (let i = 0; i < 9; i += 1) {
             const gameSquareElement = document.createElement('div');
             gameboardElement.appendChild(gameSquareElement);
         }
     };
 
+    // Return a nodelist of the gameboard squares
     const getSquares = () => document.querySelectorAll('div.gameboard>div');
 
+    /* Using all the possible ways to win, check if there is a winner after each round. 
+    After 9 turns, the round is over and results in a draw */
     const checkBoard = (symbol, turn) => {
         if (
             gameArray[0].textContent === symbol &&
@@ -170,6 +178,7 @@ const gameboard = (function () {
 })();
 
 playButton.findElement().addEventListener('click', () => {
+    // Create two players as objects based on user input
     const playerOneInput = elementFactory('input#playerOneName');
     const playerOneName = playerOneInput.findElement().value;
     const playerTwoInput = elementFactory('input#playerTwoName');
@@ -193,8 +202,10 @@ playButton.findElement().addEventListener('click', () => {
     gameboard.getSquares().forEach((square) => {
         gameboard.gameArray.push(square);
         square.addEventListener('click', (event) => {
+            // If the square is empty and the round has not ended, allow the user to interact with the square
             if (event.target.textContent === '' && !endGame) {
                 turn += 1;
+                // If the playerTurn variable is set to the last player, that means the next player has yet to go
                 if (playerTurn === 'playerTwo') {
                     symbol = playerTwo.symbol;
                     scoreboard.displayTurn(playerOne.name);
@@ -206,6 +217,7 @@ playButton.findElement().addEventListener('click', () => {
                 }
                 event.target.textContent = symbol;
                 const result = gameboard.checkBoard(symbol, turn);
+                // If the result is not empty, it is either a draw or a win
                 if (result !== '') {
                     const resultDisplay = elementFactory('div.result>p');
                     let winningPlayer;
@@ -226,14 +238,16 @@ playButton.findElement().addEventListener('click', () => {
                     scoreboard.awardPoint(winningPlayer, playerOne, result);
                     scoreboard.displayScore(playerOne.name, playerTwo.name);
 
-                    const nextRoundButton = document.createElement('button');
-                    const restartButton = document.createElement('button');
+                    // Display the result of the round along with possible options after the round is over
+                    const newRoundButton = document.createElement('button');
+                    const newGameButton = document.createElement('button');
 
-                    nextRoundButton.textContent = 'Next Round';
+                    newRoundButton.textContent = 'New Round';
                     document
                         .querySelector('div.result')
-                        .appendChild(nextRoundButton);
-                    nextRoundButton.addEventListener('click', () => {
+                        .appendChild(newRoundButton);
+                    // Keep the score but clear everything else out to start a new round
+                    newRoundButton.addEventListener('click', () => {
                         gameboard.gameArray = [];
                         turn = 0;
                         playerTurn = '';
@@ -246,15 +260,16 @@ playButton.findElement().addEventListener('click', () => {
                             gameboard.gameArray.push(gameSquare);
                         });
                         scoreboard.displayTurn(playerOne.name);
-                        nextRoundButton.remove();
-                        restartButton.remove();
+                        newRoundButton.remove();
+                        newGameButton.remove();
                     });
 
-                    restartButton.textContent = 'Restart';
+                    // Reload the webpage to start a new game
+                    newGameButton.textContent = 'New Game';
                     document
                         .querySelector('div.result')
-                        .appendChild(restartButton);
-                    restartButton.addEventListener('click', () => {
+                        .appendChild(newGameButton);
+                    newGameButton.addEventListener('click', () => {
                         window.location.reload();
                     });
 
