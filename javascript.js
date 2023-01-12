@@ -18,6 +18,7 @@ const scoreboard = (function () {
     let playerOneScore = 0;
     let playerTwoScore = 0;
 
+    // Create the scoreboard element after the user starts the game
     const makeBoard = () => {
         const scoreboardElement = document.createElement('div');
         scoreboardElement.classList.add('scoreboard');
@@ -206,8 +207,7 @@ playButton.findElement().addEventListener('click', () => {
                 event.target.textContent = symbol;
                 const result = gameboard.checkBoard(symbol, turn);
                 if (result !== '') {
-                    const resultDisplay =
-                        document.querySelector('div.result>p');
+                    const resultDisplay = elementFactory('div.result>p');
                     let winningPlayer;
                     if (result === 'winner') {
                         if (symbol === 'X') {
@@ -215,9 +215,9 @@ playButton.findElement().addEventListener('click', () => {
                         } else {
                             winningPlayer = playerTwo.name;
                         }
-                        resultDisplay.textContent = `${winningPlayer} is the winner!`;
+                        resultDisplay.findElement().textContent = `${winningPlayer} is the winner!`;
                     } else if (result === 'draw') {
-                        resultDisplay.textContent = `It's a draw!`;
+                        resultDisplay.findElement().textContent = `It's a draw!`;
                     }
 
                     document
@@ -255,7 +255,7 @@ playButton.findElement().addEventListener('click', () => {
                         .querySelector('div.result')
                         .appendChild(restartButton);
                     restartButton.addEventListener('click', () => {
-                        location.reload(true);
+                        window.location.reload();
                     });
 
                     endGame = true;
